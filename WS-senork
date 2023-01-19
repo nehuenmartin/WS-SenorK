@@ -1,0 +1,53 @@
+import requests
+from bs4 import BeautifulSoup
+
+def scrape_page(url, price_id, breadcrumb_class):
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, 'html.parser')
+
+    price = soup.find('span', id=price_id)
+    breadcrumb = soup.find("nav", class_=breadcrumb_class)
+
+    if price:
+        price = price.get_text()
+        text_in_breadcrumb = breadcrumb.get_text(" ", strip=True)
+        print(price)
+        print(text_in_breadcrumb)
+    else:
+        print("No se encontro el nombre del producto o precio en la pagina.")
+
+#Pagina 1
+url = 'https://cafesenork.com/products/blend-sta-rosa?variant=29488748494917'
+price_id = 'ProductPrice-3944446296133'
+breadcrumb_class = 'breadcrumb'
+scrape_page(url, price_id, breadcrumb_class)
+
+#Pagina 2
+url = 'https://cafesenork.com/products/sausalito-1?variant=8783658942555'
+price_id = 'ProductPrice-787344293979'
+breadcrumb_class = 'breadcrumb'
+scrape_page(url, price_id, breadcrumb_class)
+
+#Pagina 3
+url = 'https://cafesenork.com/collections/cafe-grano/products/cafe-de-colombia-blend-manizales?variant=37940721877178'
+price_id = 'ProductPrice-6177665810618'
+breadcrumb_class = 'breadcrumb'
+scrape_page(url, price_id, breadcrumb_class)
+
+#Pagina 4
+url = 'https://cafesenork.com/products/cafe-de-honduras-el-bosques?pr_prod_strat=copurchase&pr_rec_id=7fee4bfe2&pr_rec_pid=6197564506298&pr_ref_pid=3944446296133&pr_seq=uniform'
+price_id = 'ProductPrice-6197564506298'
+breadcrumb_class = 'breadcrumb'
+scrape_page(url, price_id, breadcrumb_class)
+
+#Pagina 5
+url = 'https://cafesenork.com/products/cafe-de-honduras-el-limon?pr_prod_strat=copurchase&pr_rec_id=c67f2450a&pr_rec_pid=6174947606714&pr_ref_pid=787344293979&pr_seq=uniform'
+price_id = 'ProductPrice-6174947606714'
+breadcrumb_class = 'breadcrumb'
+scrape_page(url, price_id, breadcrumb_class)
+
+#Pagina 6
+url = 'https://cafesenork.com/collections/cafe-grano/products/cafe-de-mexico-chabela-descafeinado'
+price_id = 'ProductPrice-6177678360762'
+breadcrumb_class = 'breadcrumb'
+scrape_page(url, price_id, breadcrumb_class)
